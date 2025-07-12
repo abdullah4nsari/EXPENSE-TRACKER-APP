@@ -1,0 +1,5 @@
+set up: install all dependencies, create folders and files 
+creates routes
+start from creating login
+build login page 
+start doing signup page
