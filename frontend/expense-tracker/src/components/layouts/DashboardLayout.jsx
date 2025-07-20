@@ -9,7 +9,7 @@ const DashboardLayout = ({children, activeMenu}) => {
   return (
     <div className=''>
       <Navbar activeMenu={activeMenu} />
-        {console.log(user)}
+        {/* {console.log(user)} */}
       {user && (
         <div className='flex'>
             <div className='max-[1080px]:hidden'>
