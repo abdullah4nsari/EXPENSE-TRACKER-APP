@@ -4,11 +4,36 @@ export const validateEmail = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
 };
-export const validatePassword = (password) => {
-  // const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-  // return strongPasswordRegex.test(password);
+export const validateLoginPassword = (password) => {
   return password;
 };
+
+export const validatePassword = (password) => {
+  const errors = [];
+
+  if (!/.{8,}/.test(password)) {
+    errors.push("Password must be at least 8 characters long.");
+  }
+
+  if (!/(?=.*[a-z])/.test(password)) {
+    errors.push("Password must include at least one lowercase letter.");
+  }
+
+  if (!/(?=.*[A-Z])/.test(password)) {
+    errors.push("Password must include at least one uppercase letter.");
+  }
+
+  if (!/(?=.*\d)/.test(password)) {
+    errors.push("Password must include at least one number.");
+  }
+
+  if (!/(?=.*[\W_])/.test(password)) {
+    errors.push("Password must include at least one special character.");
+  }
+
+  if(errors.length === 0) return [];
+  return errors;
+}
 
 export const getInitials = (name) => {
   if (!name) return "";

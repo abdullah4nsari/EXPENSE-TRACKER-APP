@@ -19,6 +19,9 @@ app.use(
 );
 
 app.use(express.json());
+// This makes uploaded files accessible via URL
+
+
 
 //connect DB
 connectDB();
@@ -29,7 +32,8 @@ app.use("/api/v1/expense", expenseRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
 
 //Serve uploads folder
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use('/uploads', express.static('/mnt/data'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

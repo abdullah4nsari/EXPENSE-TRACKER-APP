@@ -6,17 +6,16 @@ import { validateEmail, validatePassword } from "../../utils/helper";
 import ProfilePhotoSelector from "../../components/inputs/ProfilePhotoSelector";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
-import uploadImage from "../../utils/uploadImage"; 
+import uploadImage from "../../utils/uploadImage";
 import { UserContext } from "../../context/UserContext";
 const Signup = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState([]);
 
   const { updateUser } = useContext(UserContext);
-  
 
   const navigate = useNavigate();
 
@@ -33,40 +32,39 @@ const Signup = () => {
       setError("Please enter a valid email address");
       return;
     }
-    if (!validatePassword(password)) {
-      setError("Please enter the password");
+
+    // Password validation (collect and display warnings)
+    const passwordWarnings = validatePassword(password);
+    if (passwordWarnings.length > 0) {
+      setError(passwordWarnings);
       return;
     }
 
-    setError("");
-
     //Signup API call
     try {
-
       //upload image if present
-      if(profilePic){
+      if (profilePic) {
         const imgUploadRes = await uploadImage(profilePic);
         profileImageUrl = imgUploadRes.imageUrl || "";
       }
-      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER,{
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         fullName,
         email,
         password,
         profileImageUrl,
-      })
-      const {token, user} = response.data;
-      
-      if(token){
-        localStorage.setItem("token",token);
+      });
+      const { token, user } = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
         updateUser(user);
         navigate("/dashboard");
       }
-
     } catch (error) {
-      if(error.response && error.response.data.message){
+      if (error.response && error.response.data.message) {
         setError(error.response.data.message);
-      }else{
-        setError("Something went wrong, please try again.")
+      } else {
+        setError("Something went wrong, please try again.");
       }
     }
   };
@@ -106,7 +104,13 @@ const Signup = () => {
               />
             </div>
           </div>
-          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+          {error && (
+            <div className="text-red-500 text-xs pb-2.5">
+              {error.map((item,index) => (
+                <p key={index}>{item}</p>
+              ))}
+            </div>
+          )}
           <button type="submit" className="btn-primary">
             SIGN UP
           </button>

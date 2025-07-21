@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import AuthLayout from "../../components/layouts/AuthLayout";
 import { Link,useNavigate } from "react-router-dom";
 import Input from "../../components/inputs/Input";
-import { validateEmail, validatePassword } from "../../utils/helper";
+import { validateEmail, validateLoginPassword } from "../../utils/helper";
 import {API_PATHS} from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 import { UserContext } from "../../context/UserContext";
@@ -23,7 +23,7 @@ function Login() {
       setError("Please enter a valid email address");
       return;
     }
-    if(!validatePassword(password)){
+    if(!validateLoginPassword(password)){
       setError("Please enter the password");
       return;
     }
