@@ -25,6 +25,7 @@ function App() {
             <Route path="/dashboard" element={<Home />} />
             <Route path="/income" element={<Income />} />
             <Route path="/expense" element={<Expense />} />
+            <Route path="/logout" element={<Login />} />
           </Routes>
         </Router>
       </div>
@@ -44,5 +45,5 @@ export default App;
 const Root = () => {
   //check if token exists in local storage
   const isAuthenticated = !!localStorage.getItem("token");
-  isAuthenticated ? <Navigate to="/Home" /> : <Navigate to="/Login" />;
+  return isAuthenticated ? <Navigate to="/Home" /> : <Navigate to="/Login" />;
 };

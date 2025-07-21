@@ -24,11 +24,11 @@ export const SIDE_MENU_DATA = [
         icon: LuHandCoins,
         path: "/expense",
     },
-    {
-        id:"04",
-        label: "Logout",
-        icon: LuLogOut,
-        path: "/login",
-    },
+    // {
+    //     id:"04",
+    //     label: "Logout",
+    //     icon: LuLogOut,
+    //     path: "/logout",
+    // },
 
 ];

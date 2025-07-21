@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import CharAvatar from "../cards/CharAvatar";
+import { LuLogOut } from "react-icons/lu";
 const SideMenu = ({ activeMenu }) => {
   const { user, updateUser, clearUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -12,14 +13,12 @@ const SideMenu = ({ activeMenu }) => {
     if (route === "logout") {
       handleLogout();
     }
-
     navigate(route);
   };
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userData");
-
     clearUser();
     navigate("/login");
   };
@@ -57,6 +56,10 @@ const SideMenu = ({ activeMenu }) => {
           {item.label}
         </button>
       ))}
+      <button className={`w-full flex items-center gap-4 text-[15px]  py-3 px-6 rounded-lg mb-3`} onClick={handleLogout}>
+        <LuLogOut className="text-xl" />
+        Logout
+      </button>
     </div>
   );
 };
