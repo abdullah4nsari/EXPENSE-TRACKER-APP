@@ -5,7 +5,6 @@ import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import CharAvatar from "../cards/CharAvatar";
 import { LuLogOut } from "react-icons/lu";
-import toast from "react-hot-toast";
 const SideMenu = ({ activeMenu }) => {
   const { user, updateUser, clearUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -22,8 +21,6 @@ const SideMenu = ({ activeMenu }) => {
     localStorage.removeItem("userData");
     clearUser();
     navigate("/login");
-    toast.success("Successfully logged out")
-    
   };
   return (
     <div className="w-64 h-[calc(100vh-61px)] bg-white border-r border-gray-200/50 p-5 sticky top-[60px] z-20">
