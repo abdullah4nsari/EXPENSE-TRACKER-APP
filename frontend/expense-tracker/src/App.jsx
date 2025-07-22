@@ -45,5 +45,5 @@ export default App;
 const Root = () => {
   //check if token exists in local storage
   const isAuthenticated = !!localStorage.getItem("token");
-  return isAuthenticated ? <Navigate to="/Home" /> : <Navigate to="/Login" />;
+  return isAuthenticated ? <Navigate to="/dashboard" /> : <Navigate to="/Login" />;
 };
