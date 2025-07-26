@@ -39,6 +39,7 @@ const SideMenu = ({ activeMenu }) => {
             style="text-xl "
           />
         )}
+        {console.log(user.profileImageUrl)}
 
         <h5 className="text-gray-950 font-medium leading-6">
           {user?.fullName || ""}
