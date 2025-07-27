@@ -6,7 +6,7 @@ import { validateEmail, validatePassword } from "../../utils/helper";
 import ProfilePhotoSelector from "../../components/inputs/ProfilePhotoSelector";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
-import uploadImage from "../../utils/uploadImage"; 
+import uploadImage from "../../utils/uploadImage";
 import { UserContext } from "../../context/UserContext";
 const Signup = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -16,7 +16,6 @@ const Signup = () => {
   const [error, setError] = useState(null);
 
   const { updateUser } = useContext(UserContext);
-  
 
   const navigate = useNavigate();
 
@@ -42,31 +41,29 @@ const Signup = () => {
 
     //Signup API call
     try {
-
       //upload image if present
-      if(profilePic){
+      if (profilePic) {
         const imgUploadRes = await uploadImage(profilePic);
         profileImageUrl = imgUploadRes.imageUrl || "";
       }
-      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER,{
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         fullName,
         email,
         password,
         profileImageUrl,
-      })
-      const {token, user} = response.data;
-      
-      if(token){
-        localStorage.setItem("token",token);
+      });
+      const { token, user } = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
         updateUser(user);
         navigate("/dashboard");
       }
-
     } catch (error) {
-      if(error.response && error.response.data.message){
+      if (error.response && error.response.data.message) {
         setError(error.response.data.message);
-      }else{
-        setError("Something went wrong, please try again.")
+      } else {
+        setError("Something went wrong, please try again.");
       }
     }
   };
@@ -80,31 +77,34 @@ const Signup = () => {
 
         <form onSubmit={handleSignUp}>
           <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              label={"Full Name"}
-              placeholder="Abdullah"
-              type="text"
-            />
-            <Input
-              type="email"
-              value={email}
-              placeholder="Abdullah@example.com"
-              label="Email Address"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-
-            <div className="col-span-2">
+          <div className=" w-full flex flex-col md:flex-row gap-4">
+            <div className="">
               <Input
-                type="password"
-                value={password}
-                placeholder="Enter Your Password"
-                label="Password"
-                onChange={(e) => setPassword(e.target.value)}
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                label={"Full Name"}
+                placeholder="Abdullah"
+                type="text"
               />
             </div>
+            <div className=" md:w-full">
+              <Input
+                type="email"
+                value={email}
+                placeholder="Abdullah@example.com"
+                label="Email Address"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="">
+            <Input
+              type="password"
+              value={password}
+              placeholder="Enter Your Password"
+              label="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
           <button type="submit" className="btn-primary">

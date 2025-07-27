@@ -9,7 +9,7 @@ const Input = ({ type, value, label, onChange, placeholder }) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col">
       <label className="text-[13px] text-slate-800">{label}</label>
       <div className="input-box flex items-center justify-between bg-[#f3f7fb] px-2 rounded-md border">
         <input
@@ -17,7 +17,7 @@ const Input = ({ type, value, label, onChange, placeholder }) => {
             type === "password" ? (showPassword ? "text" : "password") : type
           }
           placeholder={placeholder}
-          className="w-full bg-transparent outline-none py-2"
+          className="w-full bg-transparent outline-none py-2 block"
           value={value}
           onChange={(e) => onChange(e)}
           aria-label={label}
