@@ -78,7 +78,7 @@ const Signup = () => {
         <form onSubmit={handleSignUp}>
           <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
           <div className=" w-full flex flex-col md:flex-row gap-4">
-            <div className="">
+            <div className="sm:w-full md:w-[50%]">
               <Input
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
@@ -87,7 +87,7 @@ const Signup = () => {
                 type="text"
               />
             </div>
-            <div className=" md:w-full">
+            <div className="sm:w-full md:w-[50%]">
               <Input
                 type="email"
                 value={email}
